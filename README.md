@@ -1,10 +1,32 @@
 # Plus PayPal 0 元提链控制台 (ChatGPT 提取支付链接)
 
-<p align="left">
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=jmmy9609-design.gpt-pp" alt="Visitors" />
-</p>
+<div align="center">
 
-[![Star History Chart](https://api.star-history.com/svg?repos=jmmy9609-design/gpt-pp&type=Date)](https://star-history.com/#jmmy9609-design/gpt-pp&Date)
+**中文** | [English](#english)
+
+</div>
+
+---
+
+### 🇨🇳 中文自述
+
+本项目是一个基于 **零额隔离（Zero-Amount）** 风控逻辑的 PayPal 智能收单转化网关。
+系统能够实时拦截并提取 Stripe Hosted Checkout 会话中的关键上下文，针对 PayPal 渠道自动完成商户核对，
+高自动化、零入款地安全转化提取 PayPal 授权长链接。
+
+> 适用场景：网络协议分析 · 支付系统防风控研究 · 住宅代理调度 · 接口逆向学习
+
+---
+
+<a name="english"></a>
+### 🇺🇸 English README
+
+This project is a smart PayPal authorization link extraction gateway built on a **Zero-Amount isolation** risk-control model.
+It intercepts and extracts key context from Stripe Hosted Checkout sessions in real time, performs automated merchant verification on the PayPal channel, and extracts long PayPal authorization links with zero funds collected.
+
+> Use cases: Network protocol analysis · Payment risk-control research · Residential proxy scheduling · API reverse engineering
+
+---
 
 > **💡 欢迎大家提交 Pull Request / Issue，共同共建与完善本项目！**
 > 
@@ -124,3 +146,13 @@ python3 -m unittest discover -s tests -v
 
 ## ⚖️ 免责声明
 本项目开源仅作为安全审计、网络协议分析和接口防欺诈学术研究之用。任何组织和个人不得将本项目用于非法欺诈、绕过风控收费等违反法律或第三方服务条款的商业场景。作者对因此引发的任何安全事故或法律纠纷不承担任何责任。
+
+---
+
+## 📈 趋势与统计 (Stats)
+
+<p align="left">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=jmmy9609-design.gpt-pp" alt="Visitors" />
+</p>
+
+[![Star History Chart](https://api.star-history.com/svg?repos=jmmy9609-design/gpt-pp&type=Date)](https://star-history.com/#jmmy9609-design/gpt-pp&Date)
