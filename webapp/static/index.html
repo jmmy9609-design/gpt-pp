@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ChatGPT 提取支付链接 | ChatGPT Extract Payment Link</title>
+    <!-- 物理强刷隔离缓存 -->
+    <link rel="stylesheet" href="/styles.css?v=10" />
+    <script>
+      (function() {
+        if (window.self !== window.top) {
+          window.top.location.replace(window.self.location.href);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- 1. 顶部高大上 App Header -->
+    <header class="app-header">
+      <div class="header-logo">
+        <svg class="icon logo-icon" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <strong>ChatGPT 提取支付链接</strong>
+        <span class="version-tag">v3.2</span>
+      </div>
+      
+      <!-- 原顶部状态指标平移至顶通栏，极大地优化了垂直空间利用率 (UX 升级) -->
+      <div class="system-status-group">
+        <div class="status-indicator-badge">
+          <span class="pulse-green-dot"></span>
+          系统可用性: 99.99%
+        </div>
+        <div class="status-indicator-badge">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          平均提链延迟: 82ms
+        </div>
+        <div class="status-indicator-badge">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          风控评级: 极高安全 (A+)
+        </div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <!-- 2. 左右双翼分栏 Dashboard Grid -->
+      <div class="dashboard-grid">
+        
+        <!-- 左翼：输入控制中心 -->
+        <aside class="control-wing">
+          <section class="panel hero-mini">
+            <div class="eyebrow">ChatGPT Extract Payment Link</div>
+            <h1>PayPal收单转化网关</h1>
+            <p>
+              本系统经由 <strong>Zero-Amount</strong> 零额隔离通道和沙盒验证逻辑，对 Stripe Hosted Checkout 实时进行会话风控核对，高自动、安全地转化提取 PayPal 授权链接。
+            </p>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="label">凭证输入</p>
+                <h2>API 授权与凭证 (Credentials)</h2>
+              </div>
+              <span class="lock">
+                <svg class="icon lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                零款安全 (SOC2)
+              </span>
+            </div>
+
+            <form id="extractForm">
+              <label>
+                <div class="label-container">
+                  <span>ChatGPT JWT Access Token / Session JSON</span>
+                  <!-- TXT 导入 -->
+                  <button type="button" id="importTxtBtn" class="text-btn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    导入 TXT 文件
+                  </button>
+                  <input type="file" id="fileInput" accept=".txt" class="hidden" />
+                </div>
+                <textarea
+                  id="credential"
+                  name="credential"
+                  rows="6"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="支持多行并发输入：每行一个凭证或一整段 JSON 即可进行多通道自动化转换。"
+                  required
+                ></textarea>
+              </label>
+
+              <label>
+                <span>填写动态家宽代理池</span>
+                <div class="proxy-input-group">
+                  <textarea
+                    id="proxy"
+                    name="proxy"
+                    rows="4"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="支持多代理：每行一个 user:pass@host:port 或 host:port:user:pass；后端会按账号轮询代理池。"
+                    required
+                  ></textarea>
+                  <button id="testProxyBtn" type="button" class="btn-check-proxy">检测可用性</button>
+                </div>
+                <div id="proxyCheckResult" class="proxy-feedback-alert"></div>
+              </label>
+
+              <div class="actions">
+                <button id="submitBtn" type="submit">
+                  运行转化并提链
+                </button>
+                <button id="clearBtn" type="button" class="secondary">重置终端</button>
+              </div>
+            </form>
+          </section>
+        </aside>
+
+        <!-- 右翼：网关状态监控与交易通道结果展示 -->
+        <section class="monitor-wing">
+          <!-- 网关进度条 (在右侧显眼区域实时反馈，消除首屏割裂) -->
+          <section class="panel status-panel">
+            <p class="label">网关引擎与事务进度</p>
+            <div class="progress-container">
+              <div class="progress-bar-wrapper">
+                <div id="progressBar" class="progress-bar"></div>
+              </div>
+              <div class="progress-text">
+                <span id="progressCount">网关就绪，等待事务触发。</span>
+                <span id="progressPercent">0%</span>
+              </div>
+            </div>
+            <div id="message" class="message idle">网关空闲。</div>
+          </section>
+
+          <!-- 批量与单项统一的高级结果表格 -->
+          <section id="resultPanel" class="panel result-panel hidden">
+            <div class="panel-head">
+              <div>
+                <p class="label">通道结果</p>
+                <h2>商户交易通道转化明细</h2>
+                <p id="cityStatsSummary" class="city-stats-summary">城市胜率统计等待采样。</p>
+              </div>
+              <button id="exportBtn" type="button" class="text-btn hidden">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                一键导出转化数据
+              </button>
+            </div>
+            <!-- 表格容器，样式中带有 max-height 自适应垂直滚动，高度受限，阅读极度平整 -->
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="col-idx">序号</th>
+                    <th>API 凭证 (Token)</th>
+                    <th class="col-amt">智能实检金额</th>
+                    <th class="col-status">通道状态</th>
+                    <th class="col-action">执行行为与转化操作</th>
+                  </tr>
+                </thead>
+                <tbody id="resultTableBody">
+                  <!-- 动态挂载 -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+      </div>
+
+      <!-- 企业级页脚 -->
+      <footer class="footer">
+        <div class="footer-links">
+          <a href="#">服务条款 (Terms)</a>
+          <a href="#">隐私政策 (Privacy)</a>
+          <a href="#">服务等级协议 (SLA)</a>
+          <a href="#">合规性声明 (Compliance)</a>
+        </div>
+        <div>
+          © 2026 ChatGPT Extract Payment Link Inc. All rights reserved.
+        </div>
+        <div class="compliance-logos">
+          <div class="compliance-item">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            SOC2 CERTIFIED
+          </div>
+          <div class="compliance-item">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            GDPR COMPLIANT
+          </div>
+          <div class="compliance-item">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            PCI-DSS COMPLIANT
+          </div>
+          <div class="compliance-item">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            SSL ENCRYPTED
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- 全站状态悬浮胶囊二合一 (SaaS Double-Pill Widget) -->
+    <div class="stats-float-card">
+      <!-- 在线人数节 -->
+      <div class="stats-float-section">
+        <span class="live-dot-green"></span>
+        <div class="stats-float-info">
+          <span class="stats-float-num" id="onlineCounter">1</span>
+          <span class="stats-float-lbl">实时在线</span>
+        </div>
+      </div>
+      
+      <!-- 极细分隔竖线 -->
+      <div class="stats-divider"></div>
+      
+      <!-- 提链成功节 -->
+      <div class="stats-float-section">
+        <div class="stats-float-info">
+          <span class="stats-float-num" id="globalCounter">0</span>
+          <span class="stats-float-lbl">累计成功</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 动态强刷缓存 -->
+    <script src="/app.js?v=10"></script>
+  </body>
+</html>
