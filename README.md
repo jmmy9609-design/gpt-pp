@@ -1,5 +1,11 @@
 # Plus PayPal 0 元提链控制台 (ChatGPT 提取支付链接)
 
+<p align="left">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=jmmy9609-design.gpt-pp" alt="Visitors" />
+</p>
+
+[![Star History Chart](https://api.star-history.com/svg?repos=jmmy9609-design/gpt-pp&type=Date)](https://star-history.com/#jmmy9609-design/gpt-pp&Date)
+
 > **💡 欢迎大家提交 Pull Request / Issue，共同共建与完善本项目！**
 > 
 > 💬 **技术交流 QQ 群**：**808987383**（入群欢迎共同探讨协议与支付安全技术）
@@ -118,14 +124,3 @@ python3 -m unittest discover -s tests -v
 
 ## ⚖️ 免责声明
 本项目开源仅作为安全审计、网络协议分析和接口防欺诈学术研究之用。任何组织和个人不得将本项目用于非法欺诈、绕过风控收费等违反法律或第三方服务条款的商业场景。作者对因此引发的任何安全事故或法律纠纷不承担任何责任。
-
----
-
-## 📈 趋势与统计 (Stats)
-
-<p align="left">
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=jmmy9609-design.gpt-pp" alt="Visitors" />
-</p>
-
-[![Star History Chart](https://api.star-history.com/svg?repos=jmmy9609-design/gpt-pp&type=Date)](https://star-history.com/#jmmy9609-design/gpt-pp&Date)
-
