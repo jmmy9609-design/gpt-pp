@@ -143,4 +143,4 @@ python3 -m unittest discover -s tests -v
   <img src="https://visitor-badge.laobi.icu/badge?page_id=jmmy9609-design.gpt-pp" alt="Visitors" />
 </p>
 
-[![Star History Chart](https://api.star-history.com/svg?repos=jmmy9609-design/gpt-pp&type=Date)](https://star-history.com/#jmmy9609-design/gpt-pp&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=jmmy9609-design/gpt-pp&type=Date)](https://star-history.dera.page/#jmmy9609-design/gpt-pp&Date)
