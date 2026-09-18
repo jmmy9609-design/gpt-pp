@@ -13,7 +13,6 @@ It intercepts and extracts key context from Stripe Hosted Checkout sessions in r
 
 > Use cases: Network protocol analysis · Payment risk-control research · Residential proxy scheduling · API reverse engineering
 
-> 💡 **Pull Requests and Issues are welcome — let's build this together!**
 > 
 > 💬 **QQ Group (Tech Discussion)**: **808987383**
 
